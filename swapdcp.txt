@@ -1,0 +1,42 @@
+SWAPDCP -- list and/or swap keys in a KEYBOARD.DCP file (6/23/92)
+(C) 1992 Ned Konz -- FREELY DISTRIBUTABLE AND USABLE
+
+MAKE A COPY OF YOUR KEYBOARD.DCP FILE TO RUN THIS PROGRAM ON!!!
+THIS WILL EDIT THE GIVEN FILE IN PLACE!!!
+
+BIX: nkonz, CI$: 76046,223
+
+Usage: SWAPDCP [-l n] [-s k1 k2 [...]] [-h] filename.DCP
+   -l n         sets listing level to n ( 0-3 )
+                0: no listing output
+                1: basic info, status output (default)
+                2: level 1 plus table headers
+                3: level 2 plus key entries
+   -s k1 k2     swaps keys with scan codes k1 and k2
+                (multiple -s arguments are processed in order)
+   -h           prints extended help to standard output and quits
+                (run as "SWAPDCP -h | more" or "SWAPDCP -h >file")
+
+For instance, to swap the control and caps-lock keys on your keyboard,
+you might use (assuming OS/2 is on your drive C:):
+
+    COPY C:\OS2\KEYBOARD.DCP C:\OS2\MYKBD.DCP
+    SWAPDCP -s 29 58 C:\OS2\MYKBD.DCP
+
+This swaps the key definitions in-place.
+
+You could then change the line in your CONFIG.SYS which goes something like:
+    DEVINFO=KBD,US,C:\OS2\KEYBOARD.DCP
+to:
+    DEVINFO=KBD,US,C:\OS2\MYKBD.DCP
+
+The next time you start up, your keys will be changed.
+
+To understand the output of the program, you should read the Physical Device
+Driver manual in the section "Keyboard IOCtls" about function 0x50 - Set
+Code Page.
+
+To get the ID of the scan codes, you could use a PC tech ref manual,
+or run the program with the "-l 3" option to produce a full key listing.
+
+I figured out the layout of the .DCP file myself.
